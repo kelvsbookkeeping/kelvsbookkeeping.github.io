@@ -1,0 +1,14 @@
+node_modules
+dist
+*.local
+.env
+.env.*
+!.env.example
+scripts/out/
+
+
+# TypeScript incremental build state
+*.tsbuildinfo
+
+# Vercel CLI settings, if you ever use it
+.vercel

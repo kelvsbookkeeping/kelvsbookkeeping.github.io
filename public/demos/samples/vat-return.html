@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>VAT3 return and workpaper | Sample project | Corrib Cycles Ltd</title>
+<style>
+*{box-sizing:border-box}
+html{font-family:Inter,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:14px;color:#0e1b2a;background:#eef3f7}
+body{margin:0}
+.bar{display:flex;align-items:center;gap:14px;height:56px;padding:0 28px;background:#163a50;color:#fff}
+.bar svg{width:20px;height:23px}
+.bar b{font-weight:700;letter-spacing:-.01em}
+.bar span{opacity:.72}
+.bar .org{margin-left:auto;opacity:1;font-weight:600}
+.flag{display:flex;gap:10px;align-items:center;padding:9px 28px;background:#fff6d6;border-bottom:1px solid #ecd98a;color:#5c4a00;font-size:12.5px}
+.flag b{letter-spacing:.08em;text-transform:uppercase;font-size:11px}
+main{max-width:1200px;margin:0 auto;padding:24px 28px 40px}
+h1{margin:0 0 4px;font-size:25px;letter-spacing:-.02em}
+.sub{margin:0 0 20px;color:#52657a}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.card{background:#fff;border:1px solid #d5dfe8;border-radius:12px;overflow:hidden}
+.card h2{margin:0;padding:13px 18px;border-bottom:1px solid #e3eaf1;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#52657a}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #edf1f5;white-space:nowrap;font-size:13px}
+td small{display:block;margin-top:3px}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#6a7b8e;font-weight:600;background:#f8fafc}
+td.w{white-space:normal}
+.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.total td{border-top:2px solid #0e1b2a;border-bottom:0;font-weight:700;background:#f8fafc}
+tr.double td{border-top:3px double #0e1b2a;border-bottom:0;font-weight:700}
+.chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+.ok{background:#e3f5e6;color:#17662a}.new{background:#e2eefb;color:#1b4f86}.warn{background:#ffe9d6;color:#9a4b00}.mute{background:#eef1f5;color:#52657a}
+.rows{padding:6px 18px 14px}
+.rows p{display:flex;justify-content:space-between;gap:16px;margin:0;padding:9px 0;border-bottom:1px solid #edf1f5}
+.rows p.s{color:#52657a;font-size:13px;padding-left:14px}
+.rows p.t{border-bottom:0;border-top:2px solid #0e1b2a;font-weight:700}
+.rows p.d{border:0;border-top:3px double #0e1b2a;font-weight:700}
+.good{color:#17662a}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid #d5dfe8;border-radius:12px;padding:13px 16px}
+.stat b{display:block;font-size:24px;letter-spacing:-.02em}
+.stat span{color:#52657a;font-size:12.5px}
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 18px}
+.box{border:1px solid #d5dfe8;border-radius:10px;padding:11px 14px}
+.box i{font-style:normal;font-weight:700;color:#1b4f86;font-size:12px;letter-spacing:.06em}
+.box b{display:block;margin-top:3px;font-size:21px;font-variant-numeric:tabular-nums}
+.box span{color:#52657a;font-size:12px}
+.box.key{background:#163a50;border-color:#163a50;color:#fff}.box.key i,.box.key span{color:#bfd6e4}
+.small{grid-template-columns:repeat(5,1fr);padding-top:0}
+.small .box b{font-size:16px}
+ul.checks{margin:0;padding:10px 18px 16px;list-style:none}
+ul.checks li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #edf1f5}
+ul.checks li::before{content:"✓";color:#17662a;font-weight:700}
+.foot{margin-top:18px;color:#6a7b8e;font-size:12px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;padding:8px 18px 16px}
+.form p{display:flex;justify-content:space-between;gap:12px;margin:0;padding:9px 0;border-bottom:1px solid #edf1f5}
+.form p span:first-child{color:#52657a}
+.form p span:last-child{font-weight:600;text-align:right}
+.steps{display:flex;gap:8px;padding:14px 18px;border-bottom:1px solid #e3eaf1}
+.steps span{padding:5px 12px;border-radius:999px;background:#eef1f5;color:#52657a;font-size:12px;font-weight:600}
+.steps span.on{background:#163a50;color:#fff}
+tr.hl td{background:#eaf6ec}
+.done{color:#17662a;font-weight:700}
+html.shot .bar,html.shot .flag,html.shot .foot{display:none}
+html.shot main{padding:20px 22px 22px}
+@media(max-width:860px){.g2,.stats,.boxes,.small,.form{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr}.g2{grid-template-columns:1fr}main{padding:18px 14px 32px}.card{overflow-x:auto}.bar{padding:0 14px}.bar span:not(.org){display:none}.flag{padding:9px 14px}}
+</style>
+</head>
+<body>
+<header class="bar"><svg viewBox="0 0 52 60" aria-hidden="true"><polyline points="6,32 20,52" fill="none" stroke="#13B5EA" stroke-width="13" stroke-linecap="round"/><polyline points="20,52 47,7" fill="none" stroke="#2CA01C" stroke-width="13" stroke-linecap="round"/></svg><b>KelvsBookkeeping</b><span>Sample ledger</span><span class="org">Corrib Cycles Ltd</span></header>
+<p class="flag"><b>Sample project</b> Corrib Cycles Ltd is a fictional company. Every customer, supplier and figure on this page is invented to show how the work is done. No client data is shown.</p>
+<main>
+<h1>VAT3 return and workpaper</h1>
+<p class="sub">Irish VAT, two-month period March - April 2026</p>
+
+<div class="grid">
+  <section class="card"><h2>VAT3 figures</h2>
+    <div class="boxes"><div class="box "><i>T1</i><b>2,306.60</b><span>VAT on sales</span></div><div class="box "><i>T2</i><b>1,200.60</b><span>VAT on purchases</span></div><div class="box key"><i>T3</i><b>1,106.00</b><span>VAT payable</span></div><div class="box "><i>T4</i><b>0.00</b><span>VAT repayable</span></div></div>
+    <div class="boxes small"><div class="box "><i>E1</i><b>1,200.00</b><span>EU supplies of goods</span></div><div class="box "><i>E2</i><b>1,000.00</b><span>EU acquisitions of goods</span></div><div class="box "><i>ES1</i><b>0.00</b><span>EU supplies of services</span></div><div class="box "><i>ES2</i><b>0.00</b><span>EU acquisitions of services</span></div><div class="box "><i>PA1</i><b>0.00</b><span>Postponed accounting</span></div></div>
+  </section>
+  <div class="grid g2" style="grid-template-columns:1fr 1fr">
+    <section class="card"><h2>Workpaper: T1, VAT on sales</h2>
+      <table><thead><tr><th>Source</th><th class="n">Net</th><th class="n">VAT</th></tr></thead><tbody><tr><td>Sales at 23%</td><td class="n">7,350.00</td><td class="n">1,690.50</td></tr><tr><td>Sales at 13.5%</td><td class="n">2,860.00</td><td class="n">386.10</td></tr>
+      <tr><td>EU acquisition, self-accounted at 23%</td><td class="n">1,000.00</td><td class="n">230.00</td></tr>
+      <tr><td>EU supply of goods, zero-rated</td><td class="n">1,200.00</td><td class="n">0.00</td></tr>
+      <tr class="double"><td>T1</td><td></td><td class="n">2,306.60</td></tr></tbody></table>
+    </section>
+    <section class="card"><h2>Workpaper: T2, VAT on purchases</h2>
+      <table><thead><tr><th>Source</th><th class="n">Net</th><th class="n">VAT</th></tr></thead><tbody><tr><td>Wicklow Bike Distributors</td><td class="n">1,900.00</td><td class="n">437.00</td></tr><tr><td>Westlink Broadband</td><td class="n">120.00</td><td class="n">27.60</td></tr><tr><td>Tillpoint Software</td><td class="n">140.00</td><td class="n">32.20</td></tr><tr><td>Westside Service Station</td><td class="n">200.00</td><td class="n">46.00</td></tr><tr><td>Shannon Couriers</td><td class="n">260.00</td><td class="n">59.80</td></tr><tr><td>Atlantic Workshop Supplies</td><td class="n">1,600.00</td><td class="n">368.00</td></tr>
+      <tr><td>EU acquisition, reclaimed at 23%</td><td class="n">1,000.00</td><td class="n">230.00</td></tr>
+      <tr class="double"><td>T2</td><td></td><td class="n">1,200.60</td></tr></tbody></table>
+    </section>
+  </div>
+  <section class="card"><h2>Checks before filing</h2><ul class="checks">
+    <li>T1 and T2 agree to the VAT control account in the ledger for the period.</li>
+    <li>Client lunch: 13.50 of VAT on food and drink left out of T2, as it cannot be reclaimed.</li>
+    <li>German supplier bill: VAT self-accounted in T1 and reclaimed in T2, value reported in E2.</li>
+    <li>Danish customer: VAT number checked, sale zero-rated and reported in E1.</li>
+    <li>Rent carries no VAT, so nothing is claimed on it.</li>
+  </ul></section>
+</div>
+<p class="foot">Prepared by Kelvin Dienzo as a portfolio sample. Not a real set of books and not tax advice.</p>
+</main>
+</body>
+</html>

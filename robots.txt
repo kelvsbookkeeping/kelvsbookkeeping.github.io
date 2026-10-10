@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://kelvsbookkeeping.github.io/sitemap.xml

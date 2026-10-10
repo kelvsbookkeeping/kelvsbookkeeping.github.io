@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Bills and sales invoices posted | Sample project | Corrib Cycles Ltd</title>
+<style>
+*{box-sizing:border-box}
+html{font-family:Inter,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:14px;color:#0e1b2a;background:#eef3f7}
+body{margin:0}
+.bar{display:flex;align-items:center;gap:14px;height:56px;padding:0 28px;background:#163a50;color:#fff}
+.bar svg{width:20px;height:23px}
+.bar b{font-weight:700;letter-spacing:-.01em}
+.bar span{opacity:.72}
+.bar .org{margin-left:auto;opacity:1;font-weight:600}
+.flag{display:flex;gap:10px;align-items:center;padding:9px 28px;background:#fff6d6;border-bottom:1px solid #ecd98a;color:#5c4a00;font-size:12.5px}
+.flag b{letter-spacing:.08em;text-transform:uppercase;font-size:11px}
+main{max-width:1200px;margin:0 auto;padding:24px 28px 40px}
+h1{margin:0 0 4px;font-size:25px;letter-spacing:-.02em}
+.sub{margin:0 0 20px;color:#52657a}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.card{background:#fff;border:1px solid #d5dfe8;border-radius:12px;overflow:hidden}
+.card h2{margin:0;padding:13px 18px;border-bottom:1px solid #e3eaf1;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#52657a}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #edf1f5;white-space:nowrap;font-size:13px}
+td small{display:block;margin-top:3px}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#6a7b8e;font-weight:600;background:#f8fafc}
+td.w{white-space:normal}
+.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.total td{border-top:2px solid #0e1b2a;border-bottom:0;font-weight:700;background:#f8fafc}
+tr.double td{border-top:3px double #0e1b2a;border-bottom:0;font-weight:700}
+.chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+.ok{background:#e3f5e6;color:#17662a}.new{background:#e2eefb;color:#1b4f86}.warn{background:#ffe9d6;color:#9a4b00}.mute{background:#eef1f5;color:#52657a}
+.rows{padding:6px 18px 14px}
+.rows p{display:flex;justify-content:space-between;gap:16px;margin:0;padding:9px 0;border-bottom:1px solid #edf1f5}
+.rows p.s{color:#52657a;font-size:13px;padding-left:14px}
+.rows p.t{border-bottom:0;border-top:2px solid #0e1b2a;font-weight:700}
+.rows p.d{border:0;border-top:3px double #0e1b2a;font-weight:700}
+.good{color:#17662a}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid #d5dfe8;border-radius:12px;padding:13px 16px}
+.stat b{display:block;font-size:24px;letter-spacing:-.02em}
+.stat span{color:#52657a;font-size:12.5px}
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 18px}
+.box{border:1px solid #d5dfe8;border-radius:10px;padding:11px 14px}
+.box i{font-style:normal;font-weight:700;color:#1b4f86;font-size:12px;letter-spacing:.06em}
+.box b{display:block;margin-top:3px;font-size:21px;font-variant-numeric:tabular-nums}
+.box span{color:#52657a;font-size:12px}
+.box.key{background:#163a50;border-color:#163a50;color:#fff}.box.key i,.box.key span{color:#bfd6e4}
+.small{grid-template-columns:repeat(5,1fr);padding-top:0}
+.small .box b{font-size:16px}
+ul.checks{margin:0;padding:10px 18px 16px;list-style:none}
+ul.checks li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #edf1f5}
+ul.checks li::before{content:"✓";color:#17662a;font-weight:700}
+.foot{margin-top:18px;color:#6a7b8e;font-size:12px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;padding:8px 18px 16px}
+.form p{display:flex;justify-content:space-between;gap:12px;margin:0;padding:9px 0;border-bottom:1px solid #edf1f5}
+.form p span:first-child{color:#52657a}
+.form p span:last-child{font-weight:600;text-align:right}
+.steps{display:flex;gap:8px;padding:14px 18px;border-bottom:1px solid #e3eaf1}
+.steps span{padding:5px 12px;border-radius:999px;background:#eef1f5;color:#52657a;font-size:12px;font-weight:600}
+.steps span.on{background:#163a50;color:#fff}
+tr.hl td{background:#eaf6ec}
+.done{color:#17662a;font-weight:700}
+html.shot .bar,html.shot .flag,html.shot .foot{display:none}
+html.shot main{padding:20px 22px 22px}
+@media(max-width:860px){.g2,.stats,.boxes,.small,.form{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr}.g2{grid-template-columns:1fr}main{padding:18px 14px 32px}.card{overflow-x:auto}.bar{padding:0 14px}.bar span:not(.org){display:none}.flag{padding:9px 14px}}
+</style>
+</head>
+<body>
+<header class="bar"><svg viewBox="0 0 52 60" aria-hidden="true"><polyline points="6,32 20,52" fill="none" stroke="#13B5EA" stroke-width="13" stroke-linecap="round"/><polyline points="20,52 47,7" fill="none" stroke="#2CA01C" stroke-width="13" stroke-linecap="round"/></svg><b>KelvsBookkeeping</b><span>Sample ledger</span><span class="org">Corrib Cycles Ltd</span></header>
+<p class="flag"><b>Sample project</b> Corrib Cycles Ltd is a fictional company. Every customer, supplier and figure on this page is invented to show how the work is done. No client data is shown.</p>
+<main>
+<h1>Bills and sales invoices posted</h1>
+<p class="sub">March - April 2026: every document coded to an account and a VAT rate</p>
+
+<div class="grid">
+  <section class="card"><h2>Sales invoices</h2><table><thead><tr><th>Ref</th><th>Date</th><th>Contact</th><th>Description</th><th>Account</th><th>VAT rate</th><th class="n">Net</th><th class="n">VAT</th><th class="n">Total</th></tr></thead><tbody>
+<tr><td>INV-1041</td><td>04 Mar</td><td>Brennan &amp; Hayes Solicitors</td><td>Cycle-to-work bikes x 2</td><td>4000 Sales - Bikes</td><td>23%</td><td class="n">1,800.00</td><td class="n">414.00</td><td class="n">2,214.00</td></tr><tr><td>INV-1042</td><td>11 Mar</td><td>Dunmore Hotel</td><td>Guest bike fleet x 4</td><td>4000 Sales - Bikes</td><td>23%</td><td class="n">2,400.00</td><td class="n">552.00</td><td class="n">2,952.00</td></tr><tr><td>INV-1043</td><td>19 Mar</td><td>Atlantic Surf School</td><td>Fleet servicing</td><td>4010 Sales - Servicing</td><td>13.5%</td><td class="n">640.00</td><td class="n">86.40</td><td class="n">726.40</td></tr><tr><td>INV-1044</td><td>26 Mar</td><td>Kilbride Couriers</td><td>Cargo bikes x 2</td><td>4000 Sales - Bikes</td><td>23%</td><td class="n">3,150.00</td><td class="n">724.50</td><td class="n">3,874.50</td></tr><tr><td>INV-1045</td><td>02 Apr</td><td>Riverbank Cafe</td><td>Delivery bike repairs</td><td>4010 Sales - Servicing</td><td>13.5%</td><td class="n">420.00</td><td class="n">56.70</td><td class="n">476.70</td></tr><tr><td>INV-1046</td><td>09 Apr</td><td>Glenview Cycling Club</td><td>Wheel builds and servicing</td><td>4010 Sales - Servicing</td><td>13.5%</td><td class="n">1,800.00</td><td class="n">243.00</td><td class="n">2,043.00</td></tr><tr><td>INV-1047</td><td>16 Apr</td><td>Nordlys Cykler ApS (Denmark)</td><td>Bikes shipped to Denmark<small><span class="chip mute">Customer VAT number checked</span></small></td><td>4020 Sales - EU</td><td>0% EU goods</td><td class="n">1,200.00</td><td class="n">0.00</td><td class="n">1,200.00</td></tr>
+<tr class="total"><td colspan="6">7 documents</td><td class="n">11,410.00</td><td class="n">2,076.60</td><td class="n">13,486.60</td></tr></tbody></table></section>
+  <section class="card"><h2>Bills</h2><table><thead><tr><th>Ref</th><th>Date</th><th>Contact</th><th>Description</th><th>Account</th><th>VAT rate</th><th class="n">Net</th><th class="n">VAT</th><th class="n">Total</th></tr></thead><tbody>
+<tr><td>BILL-0311</td><td>06 Mar</td><td>Wicklow Bike Distributors</td><td>Bike stock</td><td>5000 Cost of sales</td><td>23%</td><td class="n">1,900.00</td><td class="n">437.00</td><td class="n">2,337.00</td></tr><tr><td>BILL-0312</td><td>10 Mar</td><td>Quay Street Properties</td><td>Shop rent, March and April<small><span class="chip mute">Landlord not charging VAT</span></small></td><td>6100 Rent</td><td>No VAT</td><td class="n">1,500.00</td><td class="n">0.00</td><td class="n">1,500.00</td></tr><tr><td>BILL-0313</td><td>14 Mar</td><td>Fahrradteile Keller GmbH (Germany)</td><td>Parts and components<small><span class="chip mute">Reverse charge</span></small></td><td>5000 Cost of sales</td><td>EU acquisition 23%</td><td class="n">1,000.00</td><td class="n">230.00</td><td class="n">1,000.00</td></tr><tr><td>BILL-0314</td><td>21 Mar</td><td>Westlink Broadband</td><td>Broadband and phone</td><td>6200 Telephone</td><td>23%</td><td class="n">120.00</td><td class="n">27.60</td><td class="n">147.60</td></tr><tr><td>BILL-0315</td><td>03 Apr</td><td>Tillpoint Software</td><td>Till software subscription</td><td>6400 Software</td><td>23%</td><td class="n">140.00</td><td class="n">32.20</td><td class="n">172.20</td></tr><tr><td>BILL-0316</td><td>15 Apr</td><td>Westside Service Station</td><td>Diesel for the van</td><td>6500 Motor - fuel</td><td>23%</td><td class="n">200.00</td><td class="n">46.00</td><td class="n">246.00</td></tr><tr><td>BILL-0317</td><td>22 Apr</td><td>The Quay Kitchen</td><td>Client lunch<small><span class="chip warn">VAT on food and drink not reclaimed</span></small></td><td>6600 Entertainment</td><td>13.5% not reclaimed</td><td class="n">100.00</td><td class="n">13.50</td><td class="n">113.50</td></tr><tr><td>BILL-0318</td><td>28 Apr</td><td>Shannon Couriers</td><td>Deliveries to customers</td><td>6300 Delivery</td><td>23%</td><td class="n">260.00</td><td class="n">59.80</td><td class="n">319.80</td></tr><tr><td>BILL-0319</td><td>20 Apr</td><td>Atlantic Workshop Supplies</td><td>Hydraulic workshop bike lift<small><span class="chip mute">Capital item: added to the asset register</span></small></td><td>1500 Fixed assets - Equipment</td><td>23%</td><td class="n">1,600.00</td><td class="n">368.00</td><td class="n">1,968.00</td></tr>
+<tr class="total"><td colspan="6">9 documents</td><td class="n">6,820.00</td><td class="n">1,214.10</td><td class="n">7,804.10</td></tr></tbody></table></section>
+</div>
+<p class="foot">Prepared by Kelvin Dienzo as a portfolio sample. Not a real set of books and not tax advice.</p>
+</main>
+</body>
+</html>

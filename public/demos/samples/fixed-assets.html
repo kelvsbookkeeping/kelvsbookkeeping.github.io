@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fixed asset register | Sample project | Corrib Cycles Ltd</title>
+<style>
+*{box-sizing:border-box}
+html{font-family:Inter,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:14px;color:#0e1b2a;background:#eef3f7}
+body{margin:0}
+.bar{display:flex;align-items:center;gap:14px;height:56px;padding:0 28px;background:#163a50;color:#fff}
+.bar svg{width:20px;height:23px}
+.bar b{font-weight:700;letter-spacing:-.01em}
+.bar span{opacity:.72}
+.bar .org{margin-left:auto;opacity:1;font-weight:600}
+.flag{display:flex;gap:10px;align-items:center;padding:9px 28px;background:#fff6d6;border-bottom:1px solid #ecd98a;color:#5c4a00;font-size:12.5px}
+.flag b{letter-spacing:.08em;text-transform:uppercase;font-size:11px}
+main{max-width:1200px;margin:0 auto;padding:24px 28px 40px}
+h1{margin:0 0 4px;font-size:25px;letter-spacing:-.02em}
+.sub{margin:0 0 20px;color:#52657a}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.card{background:#fff;border:1px solid #d5dfe8;border-radius:12px;overflow:hidden}
+.card h2{margin:0;padding:13px 18px;border-bottom:1px solid #e3eaf1;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#52657a}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #edf1f5;white-space:nowrap;font-size:13px}
+td small{display:block;margin-top:3px}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#6a7b8e;font-weight:600;background:#f8fafc}
+td.w{white-space:normal}
+.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.total td{border-top:2px solid #0e1b2a;border-bottom:0;font-weight:700;background:#f8fafc}
+tr.double td{border-top:3px double #0e1b2a;border-bottom:0;font-weight:700}
+.chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+.ok{background:#e3f5e6;color:#17662a}.new{background:#e2eefb;color:#1b4f86}.warn{background:#ffe9d6;color:#9a4b00}.mute{background:#eef1f5;color:#52657a}
+.rows{padding:6px 18px 14px}
+.rows p{display:flex;justify-content:space-between;gap:16px;margin:0;padding:9px 0;border-bottom:1px solid #edf1f5}
+.rows p.s{color:#52657a;font-size:13px;padding-left:14px}
+.rows p.t{border-bottom:0;border-top:2px solid #0e1b2a;font-weight:700}
+.rows p.d{border:0;border-top:3px double #0e1b2a;font-weight:700}
+.good{color:#17662a}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid #d5dfe8;border-radius:12px;padding:13px 16px}
+.stat b{display:block;font-size:24px;letter-spacing:-.02em}
+.stat span{color:#52657a;font-size:12.5px}
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 18px}
+.box{border:1px solid #d5dfe8;border-radius:10px;padding:11px 14px}
+.box i{font-style:normal;font-weight:700;color:#1b4f86;font-size:12px;letter-spacing:.06em}
+.box b{display:block;margin-top:3px;font-size:21px;font-variant-numeric:tabular-nums}
+.box span{color:#52657a;font-size:12px}
+.box.key{background:#163a50;border-color:#163a50;color:#fff}.box.key i,.box.key span{color:#bfd6e4}
+.small{grid-template-columns:repeat(5,1fr);padding-top:0}
+.small .box b{font-size:16px}
+ul.checks{margin:0;padding:10px 18px 16px;list-style:none}
+ul.checks li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid #edf1f5}
+ul.checks li::before{content:"✓";color:#17662a;font-weight:700}
+.foot{margin-top:18px;color:#6a7b8e;font-size:12px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;padding:8px 18px 16px}
+.form p{display:flex;justify-content:space-between;gap:12px;margin:0;padding:9px 0;border-bottom:1px solid #edf1f5}
+.form p span:first-child{color:#52657a}
+.form p span:last-child{font-weight:600;text-align:right}
+.steps{display:flex;gap:8px;padding:14px 18px;border-bottom:1px solid #e3eaf1}
+.steps span{padding:5px 12px;border-radius:999px;background:#eef1f5;color:#52657a;font-size:12px;font-weight:600}
+.steps span.on{background:#163a50;color:#fff}
+tr.hl td{background:#eaf6ec}
+.done{color:#17662a;font-weight:700}
+html.shot .bar,html.shot .flag,html.shot .foot{display:none}
+html.shot main{padding:20px 22px 22px}
+@media(max-width:860px){.g2,.stats,.boxes,.small,.form{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr}.g2{grid-template-columns:1fr}main{padding:18px 14px 32px}.card{overflow-x:auto}.bar{padding:0 14px}.bar span:not(.org){display:none}.flag{padding:9px 14px}}
+</style>
+</head>
+<body>
+<header class="bar"><svg viewBox="0 0 52 60" aria-hidden="true"><polyline points="6,32 20,52" fill="none" stroke="#13B5EA" stroke-width="13" stroke-linecap="round"/><polyline points="20,52 47,7" fill="none" stroke="#2CA01C" stroke-width="13" stroke-linecap="round"/></svg><b>KelvsBookkeeping</b><span>Sample ledger</span><span class="org">Corrib Cycles Ltd</span></header>
+<p class="flag"><b>Sample project</b> Corrib Cycles Ltd is a fictional company. Every customer, supplier and figure on this page is invented to show how the work is done. No client data is shown.</p>
+<main>
+<h1>Fixed asset register</h1>
+<p class="sub">Adding a new asset and running April depreciation</p>
+
+<div class="grid">
+  <section class="card"><h2>New asset: FA-0007</h2>
+    <div class="steps"><span>Draft</span><span class="on">Registered</span><span>Sold or disposed</span></div>
+    <div class="form">
+      <p><span>Asset name</span><span>Hydraulic workshop bike lift</span></p><p><span>Asset number</span><span>FA-0007</span></p>
+      <p><span>Purchase date</span><span>20 Apr 2026</span></p><p><span>Purchase price, before VAT</span><span>1,600.00</span></p>
+      <p><span>Bought from</span><span>Atlantic Workshop Supplies, BILL-0319</span></p><p><span>VAT on the bill, reclaimed in the VAT3</span><span>368.00</span></p>
+      <p><span>Asset type</span><span>Workshop equipment</span></p><p><span>Asset account</span><span>1500 Fixed assets - Equipment</span></p>
+      <p><span>Depreciation method</span><span>Straight line</span></p><p><span>Rate</span><span>20% a year (5-year life)</span></p>
+      <p><span>Depreciation start date</span><span>20 Apr 2026</span></p><p><span>Averaging method</span><span>Full month</span></p>
+      <p><span>Residual value</span><span>0.00</span></p><p><span>Depreciation each month</span><span>26.67</span></p>
+    </div>
+  </section>
+  <section class="card"><h2>Register at 30 April 2026</h2>
+    <table><thead><tr><th>No.</th><th>Asset</th><th>Type</th><th>Bought</th><th class="n">Cost</th><th class="n">Rate</th><th class="n">Monthly</th><th class="n">Accumulated</th><th class="n">Book value</th></tr></thead><tbody><tr class=""><td>FA-0003</td><td>Delivery van</td><td>Motor vehicles</td><td>01 Jan 2025</td><td class="n">18,000.00</td><td class="n">20%</td><td class="n">300.00</td><td class="n">4,800.00</td><td class="n">13,200.00</td></tr><tr class=""><td>FA-0005</td><td>Till and point-of-sale system</td><td>Office equipment</td><td>01 Jul 2025</td><td class="n">1,200.00</td><td class="n">25%</td><td class="n">25.00</td><td class="n">250.00</td><td class="n">950.00</td></tr><tr class=""><td>FA-0006</td><td>Workshop tool set</td><td>Workshop equipment</td><td>01 Oct 2025</td><td class="n">2,400.00</td><td class="n">20%</td><td class="n">40.00</td><td class="n">280.00</td><td class="n">2,120.00</td></tr><tr class="hl"><td>FA-0007</td><td>Hydraulic workshop bike lift<small><span class="chip ok">Added this month</span></small></td><td>Workshop equipment</td><td>20 Apr 2026</td><td class="n">1,600.00</td><td class="n">20%</td><td class="n">26.67</td><td class="n">26.67</td><td class="n">1,573.33</td></tr>
+    <tr class="double"><td colspan="4">4 assets</td><td class="n">23,200.00</td><td></td><td class="n">391.67</td><td class="n">5,356.67</td><td class="n">17,843.33</td></tr></tbody></table>
+  </section>
+  <section class="card"><h2>Checks</h2><ul class="checks">
+    <li>The bill was coded to the fixed asset account, not to an expense, so the cost is spread over 5 years.</li>
+    <li>The asset is registered at 1,600.00 before VAT, because the 368.00 of VAT is reclaimed.</li>
+    <li>April depreciation of 391.67 posted: debit 6950 Depreciation, credit 1510 Accumulated depreciation.</li>
+    <li>Register cost of 23,200.00 and book value of 17,843.33 agree to the fixed asset accounts in the ledger.</li>
+  </ul></section>
+</div>
+<p class="foot">Prepared by Kelvin Dienzo as a portfolio sample. Not a real set of books and not tax advice.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,409 @@
+/*
+ * Proof page, "the ledger": hairline bands, each with a label that holds (CSS sticky) while
+ * its record scrolls past. Phones: the label sits on top of its band instead.
+ */
+
+.pf-ledger {
+  margin-top: clamp(40px, 7vh, 72px);
+}
+
+.pf-band {
+  display: grid;
+  gap: 18px clamp(24px, 4cqi, 56px);
+  padding: clamp(36px, 6vh, 56px) 0;
+  border-top: 1px solid var(--line);
+}
+.pf-band__label :is(h2, h3) {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.pf-band__label .pg-mono {
+  display: block;
+  margin-top: 6px;
+}
+.pf-band__body {
+  min-width: 0;
+}
+
+@container (min-width: 761px) {
+  .pf-band {
+    grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+  }
+  .pf-band__label {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+  }
+}
+
+/* ---------- Certifications and recognition: each one a badge, opening the award page or the certificate ---------- */
+
+.pf-certs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+  gap: 26px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pf-cert {
+  display: grid;
+  gap: 5px;
+  color: inherit;
+  text-decoration: none;
+}
+/* Every certificate is the same badge: a round seal holding the issuer's logo (a medal for an award),
+   with a verified tick, so the three read as one set whatever shape the documents are. */
+.pf-cert__badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, var(--accent), var(--accent-deep), var(--accent));
+  transition: transform var(--dur-slow) var(--ease-spring);
+}
+.pf-cert__seal {
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+  border: 4px solid var(--bg);
+  border-radius: 50%;
+  background: #ffffff;
+  color: #b7791f;
+}
+.pf-cert__seal > img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+.pf-cert__seal > svg {
+  width: 52px;
+  height: 52px;
+}
+.pf-cert__tick {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--accent);
+}
+.pf-cert {
+  min-width: 0;
+}
+.pf-cert :is(h3, h4) {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.pf-cert__open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--accent-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+.pf-cert:hover .pf-cert__badge {
+  transform: translateY(-3px);
+}
+.pf-cert:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ---------- On camera ---------- */
+
+.pf-clips {
+  display: grid;
+  gap: 28px 20px;
+  align-items: end;
+}
+@container (min-width: 761px) {
+  .pf-clips {
+    grid-template-columns: minmax(0, 1.75fr) minmax(0, 0.75fr);
+  }
+}
+.pf-clip {
+  margin: 0;
+}
+.pf-clip__player {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.pf-clip__player > img,
+.pf-clip__player > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* The phone-shot clip sits in a thin phone bezel. */
+.pf-clip[data-shape='tall'] {
+  width: min(100%, 300px);
+  justify-self: center;
+}
+.pf-clip[data-shape='tall'] .pf-clip__player {
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 6px var(--surface-2),
+    0 0 0 7px var(--line-strong);
+}
+.pf-clip figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* ---------- In the community ---------- */
+
+.pf-quote {
+  display: grid;
+  gap: 10px 28px;
+  margin: 0;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.pf-quote:first-child,
+.pf-account:first-child {
+  padding-top: 0;
+}
+/* The next band's top rule closes the record. */
+.pf-quote:last-child,
+.pf-account:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.pf-quote > p {
+  max-width: 58ch;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.pf-quote {
+  padding-block: 24px;
+}
+.pf-quote > footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: baseline;
+}
+.pf-quote cite {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+}
+@container (min-width: 761px) {
+  .pf-quote {
+    grid-template-columns: minmax(0, 1fr) 160px;
+  }
+  .pf-quote > footer {
+    display: grid;
+    align-content: start;
+    gap: 4px;
+    text-align: right;
+  }
+}
+
+/* ---------- Process guides: one open at a time, numbered steps ---------- */
+
+.pf-guides__note {
+  max-width: 68ch;
+  margin: 0 0 14px;
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.pf-guide {
+  border-top: 1px solid var(--line);
+}
+.pf-guide:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.pf-guide > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 18px 34px 18px 0;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+.pf-guide > summary::-webkit-details-marker {
+  display: none;
+}
+/* A plus that turns to a minus when the guide is open. */
+.pf-guide > summary::after {
+  content: '+';
+  position: absolute;
+  top: 14px;
+  right: 4px;
+  color: var(--accent-ink);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+.pf-guide[open] > summary::after {
+  content: '−';
+}
+.pf-guide > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pf-guide :is(h3, h4) {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+.pf-guide__body {
+  display: grid;
+  gap: 12px;
+  max-width: 860px;
+  padding: 0 0 22px;
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.pf-guide__body p {
+  margin: 0;
+}
+.pf-guide__body b {
+  color: var(--ink);
+}
+.pf-guide__body ol {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.pf-guide__body ol > li::marker {
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+}
+.pf-guide__method {
+  margin-bottom: 6px !important;
+  color: var(--ink);
+  font-weight: 700;
+}
+.pf-guide__check {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+@container (max-width: 560px) {
+  .pf-guide > summary {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A step's screenshot: the capture from the original guide on a light mat, never wider than its own pixels. */
+.pf-shot {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 10px 0 6px;
+  padding: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: #fff;
+}
+.pf-shot > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* ---------- Client accounts ---------- */
+
+.pf-account {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px 16px;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.pf-account :is(h3, h4) {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.pf-account :is(h3, h4) + p {
+  margin: 4px 0 0;
+}
+.pf-account__work {
+  grid-column: 1 / -1;
+}
+.pf-account__work > p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.pf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+@container (min-width: 761px) {
+  .pf-account {
+    grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 20px;
+  }
+  .pf-account__work {
+    grid-column: auto;
+  }
+}
+
+/* A logo on a paper key: the Work card material, light in both themes. */
+.pf-key {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 24%;
+  background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  box-shadow:
+    var(--paper-tile-shadow),
+    inset 0 1.5px 0 var(--paper-light),
+    inset 0 -2px 0 var(--paper-bevel),
+    inset 0 0 0 1px var(--paper-line);
+}
+.pf-key > img {
+  width: 64%;
+  height: 64%;
+  object-fit: contain;
+}
+.pf-key[data-blank] {
+  color: var(--paper-ink-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}

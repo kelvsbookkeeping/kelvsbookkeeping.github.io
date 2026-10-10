@@ -1,0 +1,92 @@
+/*
+ * The brand lockup (BrandMark.tsx): the check on a rounded navy square, and the name set in the site
+ * font, bold then regular, with the check standing in for the v. Used by the sidebar header and the phone bar.
+ */
+
+.brand-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 25%; /* 10px at 40px, and it scales with the smaller copies */
+  background: #163a50;
+}
+.brand-icon > svg {
+  width: 55%; /* 22 x 25 in the 40px square */
+  height: auto;
+}
+
+/*
+ * Ticking the box: on load the blue stroke draws down, the green stroke sweeps up, and the square gives
+ * a small press as the tick lands. BrandMark.tsx replays it when the logo is pointed at. Each stroke has
+ * pathLength 1, so a dash of 1 is the whole stroke; it stays invisible until its turn (a round cap would
+ * otherwise show as a dot).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .brand-icon {
+    animation: brand-box 320ms var(--ease-spring) 620ms both;
+  }
+  .brand-icon polyline {
+    stroke-dasharray: 1;
+    animation: brand-tick 150ms ease-in 350ms both;
+  }
+  .brand-icon polyline + polyline {
+    animation: brand-tick 280ms cubic-bezier(0.2, 0.7, 0.2, 1) 490ms both;
+  }
+}
+@keyframes brand-tick {
+  from {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  1% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes brand-box {
+  from {
+    scale: 1;
+  }
+  40% {
+    scale: 0.92;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.brand-name {
+  font-family: var(--font-sans);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.brand-name > b {
+  color: #fff;
+  font-weight: 800;
+}
+.brand-name__light {
+  color: #dce8ee;
+  font-weight: 300;
+}
+/* The check is a letter: lowercase height, sitting on the baseline. */
+.brand-v {
+  display: inline-block;
+  width: 0.5em;
+  height: auto;
+  margin: 0 0.01em;
+  vertical-align: baseline;
+}
+/* On the light theme the white name would vanish: the same two weights in the site's inks. */
+:root:not([data-theme='dark']) .brand-name > b {
+  color: var(--ink);
+}
+:root:not([data-theme='dark']) .brand-name__light {
+  color: var(--ink-2);
+}

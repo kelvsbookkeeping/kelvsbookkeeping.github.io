@@ -1,0 +1,225 @@
+/*
+ * Services "Ledger" (ServicesSection.tsx). One ruled page: a header line, a line per service, and a
+ * total closed with a double rule. Desktop reads as four columns (code, service, what it covers,
+ * tools) with a margin line after the code, the way ledger paper is ruled. Phones stack each entry.
+ */
+
+.sv {
+  --gutter: clamp(16px, 3.5vw, 56px);
+  position: relative;
+  container-type: inline-size;
+  padding-block: clamp(64px, 12vh, 120px);
+  scroll-margin-top: 56px;
+}
+
+/* ---------- Header ---------- */
+
+.sv__head {
+  margin-bottom: clamp(28px, 5vh, 48px);
+  padding-inline: var(--gutter);
+}
+.sv__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 18px;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.sv__rule {
+  flex: 1;
+  max-width: 280px;
+  height: 1px;
+  background: var(--line-strong);
+}
+.sv__title {
+  display: grid;
+  margin: 0;
+  font-size: clamp(2.2rem, 7cqi, 6rem);
+  font-weight: 100;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.sv__title > b {
+  font-weight: 700;
+}
+.sv__lede {
+  max-width: 52ch;
+  margin: 20px 0 0;
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* ---------- The ledger page ---------- */
+
+.sv__ledger {
+  --code-w: 92px;
+  margin-inline: var(--gutter);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.sv__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sv__row {
+  display: grid;
+  grid-template-columns: var(--code-w) minmax(0, 1.1fr) minmax(0, 1.6fr) minmax(260px, 0.9fr);
+  align-items: baseline;
+  margin: 0;
+  border-bottom: 1px solid var(--line);
+  /* The margin line: one vertical rule after the code column, down the whole page. */
+  background: linear-gradient(var(--line-strong), var(--line-strong)) var(--code-w) 0 / 1px 100% no-repeat;
+  transition: background-color 160ms ease;
+}
+.sv__row > * {
+  padding: 20px 24px;
+}
+.sv__rows > .sv__row:hover {
+  background-color: var(--surface-2);
+}
+
+.sv__row--head {
+  border-bottom-color: var(--line-strong);
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.sv__row--head > * {
+  padding-block: 14px;
+}
+.sv__row--head > :last-child {
+  text-align: right;
+}
+
+.sv__code {
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+.sv__name {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.sv__desc {
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.sv__tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.sv__tools > span {
+  padding: 4px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* The total: closed the way a finished account is, with a double rule above it. */
+.sv__row--total {
+  grid-template-columns: var(--code-w) minmax(0, 1fr) auto;
+  border-top: 3px double var(--line-strong);
+  border-bottom: 0;
+  margin-top: -1px; /* sits on the last entry's rule */
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.sv__row--total > :nth-child(2) {
+  color: var(--ink);
+  font-weight: 700;
+}
+.sv__row--total > * {
+  padding-block: 16px;
+}
+
+/* ---------- Narrow columns: tools drop under the description ---------- */
+
+@container (max-width: 900px) {
+  .sv__row {
+    grid-template-columns: var(--code-w) minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+  .sv__row--head > :last-child {
+    display: none;
+  }
+  .sv__rows .sv__tools {
+    grid-column: 3;
+    justify-content: flex-start;
+    padding-top: 0;
+    margin-top: -8px;
+  }
+  .sv__row--total {
+    grid-template-columns: var(--code-w) minmax(0, 1fr) auto;
+  }
+}
+
+/* ---------- Phones: each entry stacks beside its code ---------- */
+
+@container (max-width: 600px) {
+  .sv__ledger {
+    --code-w: 60px;
+  }
+  .sv__row--head {
+    display: none;
+  }
+  .sv__rows > .sv__row {
+    grid-template-columns: var(--code-w) minmax(0, 1fr);
+    padding-block: 16px;
+  }
+  .sv__rows > .sv__row > * {
+    grid-column: 2;
+    margin: 0;
+    padding: 0 16px;
+  }
+  .sv__rows > .sv__row > .sv__code {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    padding: 3px 0 0 14px;
+    font-size: 12px;
+  }
+  .sv__rows > .sv__row > .sv__desc {
+    margin-top: 6px;
+  }
+  .sv__rows > .sv__row > .sv__tools {
+    margin-top: 12px;
+  }
+  .sv__row--total {
+    grid-template-columns: var(--code-w) minmax(0, 1fr);
+  }
+  .sv__row--total > * {
+    padding-inline: 16px;
+  }
+  .sv__row--total > :first-child {
+    padding: 16px 0 16px 14px;
+    letter-spacing: 0.1em;
+  }
+  .sv__row--total > :last-child {
+    display: none;
+  }
+}

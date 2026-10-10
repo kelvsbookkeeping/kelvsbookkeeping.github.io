@@ -1,0 +1,324 @@
+/*
+ * Home Work section: the bento of chapters. Also home to the section-head classes (.wk-eyebrow, .wk-title,
+ * .wk-count) the other Home sections share, and the chapter logo face (.wa__face).
+ */
+
+.wk {
+  --gutter: clamp(16px, 3.5vw, 56px);
+  container-type: inline-size;
+  position: relative;
+  /* The phone top bar is sticky, so a jump to #work lands below it. */
+  scroll-margin-top: 56px;
+}
+
+@media (min-width: 1024px) {
+  .wk {
+    scroll-margin-top: 0;
+  }
+}
+
+.wk-eyebrow {
+  margin: 0 0 18px;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.wk-title {
+  margin: 0;
+  font-size: clamp(1.7rem, 4.4cqi, 4.2rem);
+  font-weight: 100;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.wk-title__bold {
+  font-weight: 700;
+}
+
+.wk-count {
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- The projects: a stack of file folders ---------- */
+
+/* Chip colours, shared with the case-study sheet (.sh, work-sheet.css). */
+.wb,
+.sh {
+  --chip: #1c2f57; /* the project-number chip and the result box: a deep ledger blue */
+  --chip-ink: #dfe9ff;
+  --sample: #4a3a0c;
+  --sample-ink: #ffd76a;
+}
+.wb {
+  padding: clamp(64px, 10vh, 112px) var(--gutter);
+}
+:root:not([data-theme='dark']) :is(.wb, .sh) {
+  --chip: #dfe9fb;
+  --chip-ink: #1b3f86;
+  --sample: #fff0c2;
+  --sample-ink: #7a5600;
+}
+.wb__head {
+  margin-bottom: clamp(28px, 5vh, 48px);
+}
+.wb__lede {
+  max-width: 60ch;
+  margin: 20px 0 0;
+  color: var(--ink-2);
+  font-size: 17px;
+  line-height: 1.5;
+}
+/*
+ * Each folder is a tab over a sheet. The tabs step across the top, one tab-width further right per
+ * folder, like the cut tabs in a filing drawer. A closed folder shows its tab and the top edge of its
+ * sheet; the open one grows to show what is inside (grid rows 0fr -> 1fr, so the height animates).
+ */
+.wf {
+  --tab-h: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wf__folder {
+  position: relative;
+  /* Folders overlap: each tab sits down over the top edge of the folder before it. */
+  margin-top: -1px;
+}
+.wf__tabwrap {
+  margin: 0 0 -1px;
+  font: inherit;
+}
+.wf__tab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: calc(100% / var(--n));
+  min-height: var(--tab-h);
+  margin-left: calc(var(--i) * 100% / var(--n));
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-bottom-color: transparent;
+  border-radius: 12px 12px 0 0;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    translate var(--dur-fast) var(--ease-spring);
+}
+.wf__tab > i {
+  flex: none;
+  color: var(--accent-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 0.06em;
+}
+.wf__tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.wf__folder[data-open] > .wf__tabwrap > .wf__tab {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: inset 0 3px 0 var(--accent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .wf__folder:not([data-open]) .wf__tab:hover {
+    color: var(--ink);
+    translate: 0 -4px;
+  }
+}
+.wf__sheet {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 14px; /* the closed folder's top edge */
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: var(--surface-2);
+  transition:
+    grid-template-rows var(--dur-slow) var(--ease-spring),
+    background-color 180ms ease;
+}
+.wf__folder[data-open] > .wf__sheet {
+  grid-template-rows: 1fr;
+  background: var(--surface);
+}
+.wf__inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.wf__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 12px;
+  padding: 20px;
+}
+.wf .wb__window {
+  margin: 0;
+}
+
+/* The sample screen in a small app window: a dark bar with three dots, the screen's name, "Sample screen". */
+.wb__window {
+  display: block;
+  margin: 16px 16px 0;
+  overflow: clip;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+.wb__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: #101820;
+  color: #fff;
+  font-size: 10.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.wb__bar > i {
+  flex: none;
+  width: 22px;
+  height: 5px;
+  background: radial-gradient(circle 2.5px at 2.5px 50%, #7c8794 98%, #0000) 0 0 / 8.5px 100% repeat-x;
+}
+.wb__bar > b {
+  overflow: hidden;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+.wb__bar > span {
+  margin-left: auto;
+  opacity: 0.75;
+}
+.wb__window > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top left;
+  /* Zoomed into the top-left of the screen, so its heading and first figures are readable at card size. */
+  transform: scale(1.6);
+  transform-origin: top left;
+}
+/* White screens on the dark theme are softened so they do not glare. */
+:root[data-theme='dark'] .wb__window > img {
+  filter: brightness(0.9);
+}
+
+.wb__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 18px 20px 20px;
+}
+.wb__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wb__chip {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--chip-ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.wb__chip--sample {
+  background: var(--sample);
+  color: var(--sample-ink);
+}
+.wb__name {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.wb__meta {
+  color: var(--ink-3);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.wb__line {
+  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.wb__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding: 11px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 650;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+.wb__line + .wb__more {
+  margin-top: 6px;
+}
+.wb__more:hover {
+  border-color: transparent;
+  background: var(--chip);
+  color: var(--chip-ink);
+}
+.wb__more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Narrow: tabs cannot step across, so each sits at the left over its own folder, full width. */
+@container (max-width: 760px) {
+  .wf__tab {
+    width: auto;
+    max-width: 100%;
+    margin-left: 0;
+    padding-right: 16px;
+  }
+  .wf__folder {
+    margin-top: 4px;
+  }
+  .wf__content {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 14px;
+  }
+  .wf .wb__body {
+    padding: 14px 4px 4px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wf__sheet,
+  .wf__tab {
+    transition: none;
+  }
+}
